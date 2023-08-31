@@ -1,0 +1,15 @@
+This is the first code 
+
+
+void uart_tx_timer_config() //transmitter
+{
+	//tim2 ch3 for PB10
+	TIM2->PSC = 500-1;
+	TIM2->ARR = 16000-1; //timer o/p as 2Hz = 500 ms delay
+
+	TIM2->DIER |= (1<<0); //update timer interrupt
+	TIM2->CNT =0; //reset the counter
+	TIM2->CR1 |= (1<<0); //Start the timer2
+
+	NVIC_EnableIRQ(TIM2_IRQn); //enable interrupt
+}
